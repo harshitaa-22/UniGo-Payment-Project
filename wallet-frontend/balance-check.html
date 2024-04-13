@@ -7,73 +7,38 @@
     <style>
         body {
             font-family: Arial, sans-serif;
-            background-color: #f0f0f0;
         }
-        .header {
+        header {
             background-color: #fff;
             padding: 20px;
             text-align: center;
-        }
-        .logo {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 10px 20px;
-            background-color: #fff;
-        }
-        .logo img {
-            width: 50px;
-            height: 50px;
-        }
-        .tagline {
-            font-size: 18px;
-            color: #555;
         }
         .balance {
-            background-color: #fff;
-            padding: 20px;
-            text-align: right;
-        }
-        .balance h2 {
             font-size: 24px;
-            margin-bottom: 10px;
-        }
-        .balance p {
-            font-size: 20px;
-            margin: 0;
-        }
-        .buttons {
-            background-color: #fff;
-            padding: 20px;
+            margin-top: 50px;
             text-align: center;
         }
-        .buttons button {
+        button {
             display: block;
-            margin: 10px auto;
+            margin: 20px auto;
             padding: 10px 20px;
-            border: none;
+            border: 2px solid #ccc;
             border-radius: 20px;
-            background-color: #ccc;
+            background-color: #f0f0f0;
             cursor: pointer;
         }
     </style>
 </head>
 <body>
 
-<div class="header">
-    <div class="logo">
-        <img src="logo.png" alt="UniGo Logo">
-        <p class="tagline">Payment on the Go.</p>
-    </div>
-</div>
+<header>
+    <img src="C:\Users\harsh\Downloads\3-removebg-preview.png" alt="UniGo Logo">
+</header>
 
 <div class="balance">
-    align-items: center;
-    <h2>Your Balance</h2>
+    <h2>Balance</h2>
     <p>₹00.0</p>
-</div>
 
-<div class="buttons">
     <button onclick="makePayment()">Make Payment</button>
     <button onclick="receivePayment()">Receive Payment</button>
 </div>
@@ -90,4 +55,3 @@ function receivePayment() {
 
 </body>
 </html>
-
