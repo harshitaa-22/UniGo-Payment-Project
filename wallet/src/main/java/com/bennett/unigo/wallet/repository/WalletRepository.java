@@ -6,5 +6,5 @@ import com.bennett.unigo.wallet.entity.Wallet;
 
 @Repository
 public interface WalletRepository extends JpaRepository<Wallet, Long> {
-    // You can add custom query methods if needed
+	Wallet findByStudentId(Integer studentId);
 }

@@ -56,18 +56,51 @@
     <div class="container">
         <img src=".\logo.jpg" alt="UniGo Logo" style="width: auto;">
         <h2>UniGo</h2>
-        <form action="/login" method="post">
-            <label for="email">Email</label>
-            <input type="text" id="email" name="email" placeholder="Enter your email" required>
+        <form>
+            <label for="username">Username</label>
+            <input type="text" id="username" name="username" placeholder="Enter your username" required>
             <label for="password">Password</label>
             <input type="password" id="password" name="password" placeholder="Enter your password" required>
             <label for="remember">
                 <input type="checkbox" id="remember" name="remember"> Remember me
             </label>
-            <button type="submit">Login</button>
+            <button id="loginUser">Login</button>
         </form>
         <!-- <p class="forgot-password"><a href="#">Forgot Password?</a></p> -->
         <p class="create-account">Don't have an account? <a href=".\register-user.html">Create an account</a></p>
     </div>
+    <script>
+        const server_url = "http://localhost:8080"
+        const submitBtn = document.getElementById('loginUser');
+        
+    
+        // const dataContainer = document.getElementById('dataContainer');
+    
+        submitBtn.addEventListener('click', (event) => {
+            event.preventDefault();
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+            
+            console.log("here we are ..");
+          if(username && password){
+            const user_data = {
+                        "userName":username,
+                        "password":password
+                    }
+            fetch(server_url+'/api/users/login', {method:"POST",headers: {"Content-Type": "application/json"}, body:JSON.stringify(user_data)})
+            .then(response => response.json())
+            .then(data=> {
+                debugger;
+                console.log("login successful");
+                console.log("data is here:"+JSON.stringify(data))
+                // Construct the URL with query parameters
+                var url = "./balance-check.html?walletId="+data["walletId"]+"&studentId="+data["studentId"]+"&username="+data["username"]+"&name="+data["name"];
+
+                // Redirect the user to the URL
+                window.location.href = url;
+            })
+          } 
+        });
+      </script>
 </body>
 </html>

@@ -5,6 +5,7 @@ import org.springframework.web.bind.annotation.*;
 import com.bennett.unigo.wallet.entity.User;
 import com.bennett.unigo.wallet.model.CPrequest;
 import com.bennett.unigo.wallet.model.LoginRequest;
+import com.bennett.unigo.wallet.model.UserDetail;
 import com.bennett.unigo.wallet.service.UserService;
 
 import java.util.List;
@@ -32,7 +33,7 @@ public class UserController {
     }
     
     @PostMapping("/login")
-    public Boolean login(@RequestBody LoginRequest user) {
+    public UserDetail login(@RequestBody LoginRequest user) {
         return userService.login(user.getUserName(),user.getPassword());
     }
     
