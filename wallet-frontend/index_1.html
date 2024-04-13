@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Simple Frontend App</title>
+  <style>
+    /* CSS styles go here */
+  </style>
+</head>
+<body>
+  <h1>Simple Frontend App</h1>
+  <button id="getBalanceBtn">Get Balance</button>
+  <div id="dataContainer"></div>
+
+  <script>
+    // JavaScript logic goes here
+    const fetchDataBtn = document.getElementById('getBalanceBtn');
+    const dataContainer = document.getElementById('dataContainer');
+
+    fetchDataBtn.addEventListener('click', () => {
+      // Make API request
+      fetch('http://192.168.1.205:8080/api/wallets')
+        .then(response => response.json())
+        .then(data => {
+            console.log(JSON.stringify(data));
+          // Display data in the container
+          dataContainer.textContent = JSON.stringify(data);
+        })
+        .catch(error => {
+          console.error('Error fetching data:', error);
+        });
+    });
+  </script>
+</body>
+</html>

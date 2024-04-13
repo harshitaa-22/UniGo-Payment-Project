@@ -1,36 +1,73 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Simple Frontend App</title>
-  <style>
-    /* CSS styles go here */
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UniGo - Payment on the Go</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            color: #333;
+        }
+        .container {
+            max-width: 400px;
+            margin: auto;
+            background-color: white;
+            padding: 20px;
+            border-radius: 5px;
+        }
+        input[type="text"],
+        input[type="password"] {
+            width: calc(100% - 20px);
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        input[type="text"]::placeholder,
+        input[type="password"]::placeholder {
+            color: #999;
+        }
+        button {
+            width: calc(100% - 20px);
+            padding: 10px;
+            background-color: #8773EE;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #8a2be2;
+        }
+        .forgot-password {
+            float: right;
+            font-size: 14px;
+            color: #666;
+        }
+        .create-account {
+            font-size: 14px;
+            color: #333;
+        }
+    </style>
 </head>
 <body>
-  <h1>Simple Frontend App</h1>
-  <button id="getBalanceBtn">Get Balance</button>
-  <div id="dataContainer"></div>
-
-  <script>
-    // JavaScript logic goes here
-    const fetchDataBtn = document.getElementById('getBalanceBtn');
-    const dataContainer = document.getElementById('dataContainer');
-
-    fetchDataBtn.addEventListener('click', () => {
-      // Make API request
-      fetch('http://192.168.1.205:8080/api/wallets')
-        .then(response => response.json())
-        .then(data => {
-            console.log(JSON.stringify(data));
-          // Display data in the container
-          dataContainer.textContent = JSON.stringify(data);
-        })
-        .catch(error => {
-          console.error('Error fetching data:', error);
-        });
-    });
-  </script>
+    <div class="container">
+        <img src=".\logo.jpg" alt="UniGo Logo" style="width: auto;">
+        <h2>UniGo</h2>
+        <form action="/login" method="post">
+            <label for="email">Email</label>
+            <input type="text" id="email" name="email" placeholder="Enter your email" required>
+            <label for="password">Password</label>
+            <input type="password" id="password" name="password" placeholder="Enter your password" required>
+            <label for="remember">
+                <input type="checkbox" id="remember" name="remember"> Remember me
+            </label>
+            <button type="submit">Login</button>
+        </form>
+        <!-- <p class="forgot-password"><a href="#">Forgot Password?</a></p> -->
+        <p class="create-account">Don't have an account? <a href=".\register-user.html">Create an account</a></p>
+    </div>
 </body>
 </html>
