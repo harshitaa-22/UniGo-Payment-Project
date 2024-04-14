@@ -81,7 +81,7 @@
         fetch(server_url+'/api/students', {method:"POST",headers: {"Content-Type": "application/json"}, body:JSON.stringify(student_data)})
         .then(response => response.json())
         .then(data=> {
-            debugger;
+            
             console.log("student is created in the system");
             console.log("data is here:"+data);
             studentId = data["id"];
@@ -94,7 +94,7 @@
             fetch(server_url+'/api/users', {method:"POST",headers: {"Content-Type": "application/json"}, body:JSON.stringify(user_data)})
             .then(response => response.json())
             .then(data=> {
-                debugger;
+                
                 console.log("user is created in the system");
 
                 const new_wallet_Req = {
@@ -104,8 +104,12 @@
                 fetch(server_url+'/api/wallets/newWallet', {method:"POST",headers: {"Content-Type": "application/json"}, body:JSON.stringify(new_wallet_Req)})
                 .then(response => response.json())
                 .then(data=> {
-                    debugger;
+                    
                     console.log("wallet is created:"+JSON.stringify(data));
+                    var url = "./index.html";
+
+                    // Redirect the user to the URL
+                    window.location.href = url;
                 });
 
             })

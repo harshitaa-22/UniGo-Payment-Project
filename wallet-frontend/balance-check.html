@@ -32,25 +32,58 @@
 <body>
 
 <header>
-    <img src="C:\Users\harsh\Downloads\3-removebg-preview.png" alt="UniGo Logo">
+    <img src=".\logo.jpg" alt="UniGo Logo">
 </header>
+<div style="display: none;">
+<input type="text" name="name" id="name"/>
+<input type="text" name="walletId" id="walletId"/>
+<input type="text" name="studentId" id="studentId"/>
+<input type="text" name="username" id="username"/>
+</div>
 
 <div class="balance">
+    <h2>Welcome <span id="displayUserName"></span></h2>
     <h2>Balance</h2>
-    <p>₹00.0</p>
+    <p><span id="userBalance"></span></p>
 
     <button onclick="makePayment()">Make Payment</button>
     <button onclick="receivePayment()">Receive Payment</button>
 </div>
 
 <script type="text/javascript">
-function makePayment() {
-   // Add payment processing code here
-}
+    const server_url = "http://localhost:8080"
+    function makePayment() {
+    // Add payment processing code here
+    }
 
-function receivePayment() {
-   // Add payment receiving code here
-}
+    function receivePayment() {
+    // Add payment receiving code here
+    }
+
+    // Function to parse query parameters from URL
+    function getQueryParam(name) {
+        const urlParams = new URLSearchParams(window.location.search);
+        return urlParams.get(name);
+    }
+
+    // Retrieve query parameter and display it on the page
+    const name = getQueryParam("name");
+    document.getElementById("name").value = name;
+    document.getElementById("displayUserName").textContent = name;
+    const walletId = getQueryParam("walletId");
+    document.getElementById("walletId").value = walletId; 
+    document.getElementById("studentId").value = getQueryParam("studentId");
+    document.getElementById("username").value = getQueryParam("username");
+    
+    fetch(server_url+'/api/wallets/'+walletId)
+        .then(response => response.json())
+        .then(data => {
+            console.log(JSON.stringify(data));
+            balance = data["balance"];
+            var formattedBalance = balance.toFixed(2);
+            document.getElementById("userBalance").textContent = formattedBalance;
+        //   dataContainer.textContent = JSON.stringify(data);
+        })
 </script>
 
 </body>
