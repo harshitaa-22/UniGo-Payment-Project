@@ -47,6 +47,7 @@
     <form>
         <input type="text" id="email" name="email" placeholder="Email"><br>
         <input type="text" id="fullname" name="fullname" placeholder="Full Name"><br>
+        <input type="text" id="contactNo" name="contactNo" placeholder="Mobile No"><br>
         <input type="text" id="username" name="username" placeholder="Username"><br>
         <input type="password" id="password" name="password" placeholder="Password"><br>
         <input type="password" id="repeatPassword" name="repeat-password" placeholder="Repeat Password"><br>
@@ -65,6 +66,7 @@
         event.preventDefault();
         const email = document.getElementById('email').value;
         const fullname = document.getElementById('fullname').value;
+        const contactNo = document.getElementById('contactNo').value;
         const username = document.getElementById('username').value;
         const password = document.getElementById('password').value;
         const repeatPassword = document.getElementById('repeatPassword').value;
@@ -76,6 +78,7 @@
                                 "name":fullname,
                                 "semester":2,
                                 "course":"Computer science",
+                                "contactNo": contactNo,
                                 "active":true
                             }
         fetch(server_url+'/api/students', {method:"POST",headers: {"Content-Type": "application/json"}, body:JSON.stringify(student_data)})

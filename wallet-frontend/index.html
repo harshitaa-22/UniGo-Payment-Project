@@ -94,7 +94,7 @@
                 console.log("login successful");
                 console.log("data is here:"+JSON.stringify(data))
                 // Construct the URL with query parameters
-                var url = "./balance-check.html?walletId="+data["walletId"]+"&studentId="+data["studentId"]+"&username="+data["username"]+"&name="+data["name"];
+                var url = "./balance-check.html?walletId="+data["walletId"]+"&studentId="+data["studentId"]+"&username="+data["username"]+"&name="+data["name"]+"&contactNo="+data["contactNo"];
 
                 // Redirect the user to the URL
                 window.location.href = url;

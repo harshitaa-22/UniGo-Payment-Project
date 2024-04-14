@@ -64,9 +64,11 @@ public class UserService {
         	userDetails.setWalletId(Integer.valueOf(wallet.getId()+"") );
         	userDetails.setActive(wallet.getActive());
         	userDetails.setUsername(user.getUserName());
+        	userDetails.setUsername(user.getUserName());
         	Optional<Student> student = studentRepository.findById((long)user.getStudentId());
         	if(student.isPresent()) {
         		userDetails.setName(student.get().getName());
+        		userDetails.setContactNo(student.get().getContactNo());
         	}
         	
         	return userDetails;

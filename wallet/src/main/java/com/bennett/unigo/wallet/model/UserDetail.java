@@ -8,18 +8,20 @@ public class UserDetail {
     private Integer walletId;
     private String username;
     private String name;
+    private String contactNo;
     
 	public UserDetail() {
 		super();
 	}
 
-	public UserDetail(Integer studentId, Boolean active, Integer walletId, String username, String name) {
+	public UserDetail(Integer studentId, Boolean active, Integer walletId, String username, String name,String contactNo) {
 		super();
 		this.studentId = studentId;
 		this.active = active;
 		this.walletId = walletId;
 		this.username = username;
 		this.name = name;
+		this.contactNo = contactNo;
 	}
 	
 	public Integer getStudentId() {
@@ -52,4 +54,11 @@ public class UserDetail {
 	public void setName(String name) {
 		this.name = name;
 	}
+	public String getContactNo() {
+		return contactNo;
+	}
+	public void setContactNo(String contactNo) {
+		this.contactNo = contactNo;
+	}
+
 }

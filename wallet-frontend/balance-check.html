@@ -39,6 +39,7 @@
 <input type="text" name="walletId" id="walletId"/>
 <input type="text" name="studentId" id="studentId"/>
 <input type="text" name="username" id="username"/>
+<input type="text" name="contactNo" id="contactNo"/>
 </div>
 
 <div class="balance">
@@ -46,19 +47,31 @@
     <h2>Balance</h2>
     <p><span id="userBalance"></span></p>
 
-    <button onclick="makePayment()">Make Payment</button>
-    <button onclick="receivePayment()">Receive Payment</button>
+    <h2>Make Payment</h2>
+    <div id="makePaymentForm">
+        <form>
+            <label for="contactNoTo">Mobile No</label>
+            <input type="text" id="contactNoTo" name="contactNoTo" placeholder="Recipient Contact No" required>
+            <label for="amountTo">Amount</label>
+            <input type="text" id="amountTo" name="amountTo" placeholder="amount to transfer" required>
+            <button id="sendMoneyBtn">Confirm</button>
+        </form>
+    </div><br>
+    <h2>Recharge Wallet</h2>
+    <div id="addMoneyForm">
+        <form>
+            <label for="amountFor">Amount</label>
+            <input type="text" id="amountFor" name="amountFor" placeholder="Enter your Amount" required>
+            
+            <button id="addMoneyBtn">Confirm</button>
+        </form>
+    </div>
 </div>
 
 <script type="text/javascript">
     const server_url = "http://localhost:8080"
-    function makePayment() {
-    // Add payment processing code here
-    }
-
-    function receivePayment() {
-    // Add payment receiving code here
-    }
+    const addMoneyBtn = document.getElementById('addMoneyBtn');
+    const sendMoneyBtn = document.getElementById('sendMoneyBtn');
 
     // Function to parse query parameters from URL
     function getQueryParam(name) {
@@ -74,8 +87,64 @@
     document.getElementById("walletId").value = walletId; 
     document.getElementById("studentId").value = getQueryParam("studentId");
     document.getElementById("username").value = getQueryParam("username");
+    document.getElementById("contactNo").value = getQueryParam("contactNo");
+    loadWallet(walletId);
+
+
+    sendMoneyBtn.addEventListener('click', (event) => {
+        event.preventDefault();
+        const contactNoTo = document.getElementById('contactNoTo').value;
+        const amountTo = document.getElementById('amountTo').value;
+        
+        console.log("here we are ..");
+        if(contactNoTo && amountTo && walletId){
+        const transfer_data = {
+            "amount":parseInt(amountTo),
+            "sourceWallet":walletId,
+            "contactNo": contactNoTo
+            }
+        fetch(server_url+'/api/transactions/new-transaction', {method:"POST",headers: {"Content-Type": "application/json"}, body:JSON.stringify(transfer_data)})
+        .then(response => response.json())
+        .then(data=> {
+            console.log("Status:"+data["statusreason"]);
+            console.log("data is here:"+JSON.stringify(data))
+            document.getElementById('contactNoTo').value = ""
+            document.getElementById('amountTo').value = ""
+            loadWallet(walletId);
+        })
+        } 
+    });
     
-    fetch(server_url+'/api/wallets/'+walletId)
+    
+    
+    addMoneyBtn.addEventListener('click', (event) => {
+        event.preventDefault();
+        const amountFor = document.getElementById('amountFor').value;
+        
+        console.log("here we are ..");
+        if(amountFor && walletId){
+        const recharge_data = {
+            "walletId":parseInt(walletId),
+            "amount": parseInt(amountFor),
+            "status":1,
+            "statusReason":"success"
+                }
+        fetch(server_url+'/api/recharges', {method:"POST",headers: {"Content-Type": "application/json"}, body:JSON.stringify(recharge_data)})
+        .then(response => response.json())
+        .then(data=> {
+            console.log("recharge successful");
+            console.log("data is here:"+JSON.stringify(data))
+            document.getElementById('amountFor').value = ""
+            loadWallet(walletId);
+        })
+        } 
+    });
+
+
+    
+    
+    function loadWallet(walletId){
+        fetch(server_url+'/api/wallets/'+walletId)
         .then(response => response.json())
         .then(data => {
             console.log(JSON.stringify(data));
@@ -84,6 +153,7 @@
             document.getElementById("userBalance").textContent = formattedBalance;
         //   dataContainer.textContent = JSON.stringify(data);
         })
+    }
 </script>
 
 </body>

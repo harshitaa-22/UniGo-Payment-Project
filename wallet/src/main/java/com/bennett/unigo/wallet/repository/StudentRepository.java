@@ -6,5 +6,5 @@ import com.bennett.unigo.wallet.entity.Student;
 
 @Repository
 public interface StudentRepository extends JpaRepository<Student, Long> {
-
+	Student findByContactNo(String contactNo);
 }
