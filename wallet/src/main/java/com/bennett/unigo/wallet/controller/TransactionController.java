@@ -3,6 +3,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import com.bennett.unigo.wallet.entity.Transaction;
+import com.bennett.unigo.wallet.model.TransactionRequest;
 import com.bennett.unigo.wallet.service.TransactionService;
 
 import java.util.List;
@@ -26,6 +27,11 @@ public class TransactionController {
     @PostMapping
     public Transaction createTransaction(@RequestBody Transaction transaction) {
         return transactionService.createTransaction(transaction);
+    }
+    
+    @PostMapping("/new-transaction")
+    public Transaction newTransaction(@RequestBody TransactionRequest transactionReq) {
+        return transactionService.createTransaction(transactionReq);
     }
 
     @PutMapping("/{id}")

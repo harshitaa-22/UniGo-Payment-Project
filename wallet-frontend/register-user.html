@@ -44,15 +44,81 @@
 <div class="container">
     <div class="header">CREATE YOUR ACCOUNT</div>
     <br>
-    <form action="/submit_form" method="post">
-        <input type="text" name="email" placeholder="Email"><br>
-        <input type="text" name="fullname" placeholder="Full Name"><br>
-        <input type="text" name="username" placeholder="Username"><br>
-        <input type="password" name="password" placeholder="Password"><br>
-        <input type="password" name="repeat-password" placeholder="Repeat Password"><br>
-        <button class="button" type="submit">Create Account</button>
+    <form>
+        <input type="text" id="email" name="email" placeholder="Email"><br>
+        <input type="text" id="fullname" name="fullname" placeholder="Full Name"><br>
+        <input type="text" id="contactNo" name="contactNo" placeholder="Mobile No"><br>
+        <input type="text" id="username" name="username" placeholder="Username"><br>
+        <input type="password" id="password" name="password" placeholder="Password"><br>
+        <input type="password" id="repeatPassword" name="repeat-password" placeholder="Repeat Password"><br>
+        <button class="button" id="registerNewUser">Create Account</button>
     </form>
 </div>
+<script>
+    const server_url = "http://localhost:8080"
+    const submitBtn = document.getElementById('registerNewUser');
+    var studentId = null;
+    
 
+    // const dataContainer = document.getElementById('dataContainer');
+
+    submitBtn.addEventListener('click', (event) => {
+        event.preventDefault();
+        const email = document.getElementById('email').value;
+        const fullname = document.getElementById('fullname').value;
+        const contactNo = document.getElementById('contactNo').value;
+        const username = document.getElementById('username').value;
+        const password = document.getElementById('password').value;
+        const repeatPassword = document.getElementById('repeatPassword').value;
+        
+        console.log("here we are ..");
+      if(email && fullname && username && password && repeatPassword && repeatPassword == password){
+        const student_data = {
+                                "enrollmentNo":email,
+                                "name":fullname,
+                                "semester":2,
+                                "course":"Computer science",
+                                "contactNo": contactNo,
+                                "active":true
+                            }
+        fetch(server_url+'/api/students', {method:"POST",headers: {"Content-Type": "application/json"}, body:JSON.stringify(student_data)})
+        .then(response => response.json())
+        .then(data=> {
+            
+            console.log("student is created in the system");
+            console.log("data is here:"+data);
+            studentId = data["id"];
+            const user_data = {
+                                "userName": username,
+                                "password": password,
+                                "active": true,
+                                "studentId":data["id"]
+                            }
+            fetch(server_url+'/api/users', {method:"POST",headers: {"Content-Type": "application/json"}, body:JSON.stringify(user_data)})
+            .then(response => response.json())
+            .then(data=> {
+                
+                console.log("user is created in the system");
+
+                const new_wallet_Req = {
+                    "studentId":studentId,
+                    "active":true
+                }
+                fetch(server_url+'/api/wallets/newWallet', {method:"POST",headers: {"Content-Type": "application/json"}, body:JSON.stringify(new_wallet_Req)})
+                .then(response => response.json())
+                .then(data=> {
+                    
+                    console.log("wallet is created:"+JSON.stringify(data));
+                    var url = "./index.html";
+
+                    // Redirect the user to the URL
+                    window.location.href = url;
+                });
+
+            })
+        })
+      } 
+    });
+  </script>
 </body>
 </html>
