@@ -83,6 +83,7 @@
             
             console.log("here we are ..");
           if(username && password){
+            showStatusMessage("Login Request", 5000);
             const user_data = {
                         "userName":username,
                         "password":password
@@ -93,6 +94,12 @@
                 
                 console.log("login successful");
                 console.log("data is here:"+JSON.stringify(data))
+                
+
+                // Example usage: Show status message for 5 seconds
+                showStatusMessage("Login successful..!", 5000);
+
+
                 // Construct the URL with query parameters
                 var url = "./balance-check.html?walletId="+data["walletId"]+"&studentId="+data["studentId"]+"&username="+data["username"]+"&name="+data["name"]+"&contactNo="+data["contactNo"];
 
@@ -101,6 +108,28 @@
             })
           } 
         });
+
+        function showStatusMessage(message, duration) {
+            // Create status message element
+            var statusDiv = document.createElement("div");
+            statusDiv.textContent = message;
+            statusDiv.style.backgroundColor = "lightblue";
+            statusDiv.style.padding = "10px";
+            statusDiv.style.position = "fixed";
+            statusDiv.style.bottom = "10px";
+            statusDiv.style.left = "50%";
+            statusDiv.style.transform = "translateX(-50%)";
+            statusDiv.style.borderRadius = "5px";
+            statusDiv.style.zIndex = "9999";
+
+            // Append status message to the body
+            document.body.appendChild(statusDiv);
+
+            // Set timeout to remove status message after duration
+            setTimeout(function() {
+                document.body.removeChild(statusDiv);
+            }, duration);
+        }
       </script>
 </body>
 </html>

@@ -86,6 +86,7 @@
         .then(data=> {
             
             console.log("student is created in the system");
+            showStatusMessage("Student Created..!",5000);
             console.log("data is here:"+data);
             studentId = data["id"];
             const user_data = {
@@ -99,6 +100,7 @@
             .then(data=> {
                 
                 console.log("user is created in the system");
+                showStatusMessage("User Created..!",5000);
 
                 const new_wallet_Req = {
                     "studentId":studentId,
@@ -109,6 +111,7 @@
                 .then(data=> {
                     
                     console.log("wallet is created:"+JSON.stringify(data));
+                    showStatusMessage("Wallet Created..!",5000);
                     var url = "./index.html";
 
                     // Redirect the user to the URL
@@ -119,6 +122,28 @@
         })
       } 
     });
+
+    function showStatusMessage(message, duration) {
+        // Create status message element
+        var statusDiv = document.createElement("div");
+        statusDiv.textContent = message;
+        statusDiv.style.backgroundColor = "lightblue";
+        statusDiv.style.padding = "10px";
+        statusDiv.style.position = "fixed";
+        statusDiv.style.bottom = "10px";
+        statusDiv.style.left = "50%";
+        statusDiv.style.transform = "translateX(-50%)";
+        statusDiv.style.borderRadius = "5px";
+        statusDiv.style.zIndex = "9999";
+
+        // Append status message to the body
+        document.body.appendChild(statusDiv);
+
+        // Set timeout to remove status message after duration
+        setTimeout(function() {
+            document.body.removeChild(statusDiv);
+        }, duration);
+    }
   </script>
 </body>
 </html>
